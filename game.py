@@ -1,12 +1,16 @@
 import random, pygame, time 
 from pygame.locals import *
-from model import *
+from board import *
 
 class Game:
-    def __init__(self):
-        self.board = Board(4)
+    def __init__(self, size=4):
+        self.board = Board(size)
         self.board.add_new_piece()
-    
+
+    def print_board(self):
+        bstr = self.board.board_str()
+        print(bstr + "\n" * 2)
+
     def start(self):
 
         pygame.init()
@@ -14,30 +18,28 @@ class Game:
         pygame.display.set_caption('Pygame Keyboard Test')
         pygame.mouse.set_visible(0)
 
+        self.print_board()
+
         while True:
             for event in pygame.event.get():
                 if (event.type == KEYDOWN):
                     if (event.key == pygame.K_UP):
                         self.board.step("up")
-                        bstr = self.board.board_str()
-                        print(bstr + "\n" * 2)
+                        self.print_board()
                         time.sleep(0.2)
                     elif(event.key == pygame.K_DOWN):
                         self.board.step("down")
-                        bstr = self.board.board_str()
-                        print(bstr + "\n" * 2)
+                        self.print_board()
                         time.sleep(0.2)
                     elif(event.key == pygame.K_LEFT):
                         self.board.step("left")
-                        bstr = self.board.board_str()
-                        print(bstr + "\n" * 2)
+                        self.print_board()
                         time.sleep(0.2)
                     elif(event.key == pygame.K_RIGHT):
                         self.board.step("right")
-                        bstr = self.board.board_str()
-                        print(bstr + "\n" * 2)
+                        self.print_board()
                         time.sleep(0.2)
 
 if __name__ == '__main__':
-    g = Game()
+    g = Game(5)
     g.start()
